@@ -34,17 +34,6 @@ const MOSAIC = [
   { title: "Drift", client: "Slack", video: "https://customer-2qq5swrnyq0tcvng.cloudflarestream.com/0350a55f5fbf204911aa7d76dae836b7/iframe?muted=true&preload=true&loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-2qq5swrnyq0tcvng.cloudflarestream.com%2F0350a55f5fbf204911aa7d76dae836b7%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600", bg: "#1b2050" },
   { title: "Spark", client: "TikTok", video: "https://customer-2qq5swrnyq0tcvng.cloudflarestream.com/d6a4d633b7c678fd2bebb292713f914c/iframe?muted=true&preload=true&loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-2qq5swrnyq0tcvng.cloudflarestream.com%2Fd6a4d633b7c678fd2bebb292713f914c%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600", bg: "#5c1b4e" },
   { title: "Pulse", client: "X", video: "https://customer-2qq5swrnyq0tcvng.cloudflarestream.com/43cfa0ad37b69fc04856a675333da02b/iframe?muted=true&preload=true&loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-2qq5swrnyq0tcvng.cloudflarestream.com%2F43cfa0ad37b69fc04856a675333da02b%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600", bg: "#1a1a3a" },
-  { title: "Wave", client: "Uber", video: "https://customer-2qq5swrnyq0tcvng.cloudflarestream.com/994ca8d9ec4448fc5ff252c0dd150c90/iframe?muted=true&preload=true&loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-2qq5swrnyq0tcvng.cloudflarestream.com%2F994ca8d9ec4448fc5ff252c0dd150c90%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600", bg: "#1b5c3a" },
-  { title: "Glow", client: "Lyft", video: "https://customer-2qq5swrnyq0tcvng.cloudflarestream.com/af333d7c4932d79de3c01b2d0e195c3c/iframe?muted=true&preload=true&loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-2qq5swrnyq0tcvng.cloudflarestream.com%2Faf333d7c4932d79de3c01b2d0e195c3c%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600", bg: "#5c1b5c" },
-  { title: "Rush", client: "Notion", video: "https://customer-2qq5swrnyq0tcvng.cloudflarestream.com/08c9e764e6817d650d5020ec2243ad50/iframe?muted=true&preload=true&loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-2qq5swrnyq0tcvng.cloudflarestream.com%2F08c9e764e6817d650d5020ec2243ad50%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600", bg: "#3a3a1b" },
-  { title: "Core", client: "Linear", video: "https://customer-2qq5swrnyq0tcvng.cloudflarestream.com/9d4db0290887548bc14016ffec181468/iframe?muted=true&preload=true&loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-2qq5swrnyq0tcvng.cloudflarestream.com%2F9d4db0290887548bc14016ffec181468%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600", bg: "#2d3a5c" },
-  { title: "Edge", client: "Vercel", video: "https://customer-2qq5swrnyq0tcvng.cloudflarestream.com/6b9fa15d8d322c2cb8f4fd5536f280c9/iframe?muted=true&preload=true&loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-2qq5swrnyq0tcvng.cloudflarestream.com%2F6b9fa15d8d322c2cb8f4fd5536f280c9%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600", bg: "#1a1a30" },
-  { title: "Aura", client: "Canva", video: "https://customer-2qq5swrnyq0tcvng.cloudflarestream.com/3c730d510148e3d42460ab529879f3fe/iframe?muted=true&preload=true&loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-2qq5swrnyq0tcvng.cloudflarestream.com%2F3c730d510148e3d42460ab529879f3fe%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600", bg: "#5c3a5c" },
-  { title: "Orbit", client: "Zoom", video: "https://customer-2qq5swrnyq0tcvng.cloudflarestream.com/abed34ed592e28c0c2684450823c7d39/iframe?muted=true&preload=true&loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-2qq5swrnyq0tcvng.cloudflarestream.com%2Fabed34ed592e28c0c2684450823c7d39%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600", bg: "#1b405c" },
-  { title: "Flame", client: "Reddit", video: "https://customer-2qq5swrnyq0tcvng.cloudflarestream.com/512071acc96ef9ebc1c36933c13b1781/iframe?muted=true&preload=true&loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-2qq5swrnyq0tcvng.cloudflarestream.com%2F512071acc96ef9ebc1c36933c13b1781%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600", bg: "#5c2a1b" },
-  { title: "Zen", client: "Calm", video: "https://customer-2qq5swrnyq0tcvng.cloudflarestream.com/0bb6b0e87f76df5fcd0d74d9b455f895/iframe?muted=true&preload=true&loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-2qq5swrnyq0tcvng.cloudflarestream.com%2F0bb6b0e87f76df5fcd0d74d9b455f895%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600", bg: "#2a4040" },
-  { title: "Bolt", client: "Square", video: "https://customer-2qq5swrnyq0tcvng.cloudflarestream.com/457a71481fe069c6a720a71f43da28c1/iframe?muted=true&preload=true&loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-2qq5swrnyq0tcvng.cloudflarestream.com%2F457a71481fe069c6a720a71f43da28c1%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600", bg: "#3a2d5c" },
-  { title: "Mist", client: "Dropbox", video: "https://customer-2qq5swrnyq0tcvng.cloudflarestream.com/705a78f6949cf950090fa99e50dabeb3/iframe?muted=true&preload=true&loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-2qq5swrnyq0tcvng.cloudflarestream.com%2F705a78f6949cf950090fa99e50dabeb3%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600", bg: "#1b3a4e" },
 ];
 
 const NUM_COLS = 4;
@@ -602,8 +591,8 @@ export default function Lifebeats() {
           100% { transform: translateX(-50%); }
         }
         @keyframes scrollDown {
-          0% { transform: translateY(-25%); }
-          100% { transform: translateY(0%); }
+          0% { transform: translate3d(0, -25%, 0); }
+          100% { transform: translate3d(0, 0%, 0); }
         }
         @keyframes gradientShift {
           0% { background-position: 0% 50%; }
