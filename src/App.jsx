@@ -142,7 +142,7 @@ function Nav() {
 
 /* ── MOSAIC CARD ─────────────────────────────── */
 function MosaicCard({ card }) {
-  const [posterVisible, setPosterVisible] = useState(true);
+  const posterRef = useRef(null);
   const isCloudflare = card.video && card.video.includes("cloudflarestream.com");
   const posterUrl = isCloudflare ? (() => {
     try { return new URL(card.video).searchParams.get("poster"); } catch { return null; }
@@ -159,7 +159,9 @@ function MosaicCard({ card }) {
           src={card.video}
           allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen"
           allowFullScreen
-          onLoad={() => setTimeout(() => setPosterVisible(false), 800)}
+          onLoad={() => setTimeout(() => {
+            if (posterRef.current) posterRef.current.style.opacity = "0";
+          }, 800)}
           style={{
             position: "absolute", inset: -2,
             width: "calc(100% + 4px)", height: "calc(100% + 4px)",
@@ -168,10 +170,9 @@ function MosaicCard({ card }) {
         />
       )}
       {posterUrl && (
-        <img src={posterUrl} alt="" style={{
+        <img ref={posterRef} src={posterUrl} alt="" style={{
           position: "absolute", inset: 0, width: "100%", height: "100%",
           objectFit: "cover", pointerEvents: "none",
-          opacity: posterVisible ? 1 : 0,
           transition: "opacity 0.6s ease",
         }} />
       )}
