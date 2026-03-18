@@ -153,6 +153,8 @@ function MosaicCard({ card }) {
       width: "100%", aspectRatio: "4/5", borderRadius: 14,
       background: card.bg, position: "relative", overflow: "hidden",
       flexShrink: 0,
+      contain: "layout paint style",
+      isolation: "isolate",
     }}>
       {isCloudflare && (
         <iframe
@@ -161,7 +163,7 @@ function MosaicCard({ card }) {
           allowFullScreen
           onLoad={() => setTimeout(() => {
             if (posterRef.current) posterRef.current.style.opacity = "0";
-          }, 800)}
+          }, 800 + Math.random() * 600)}
           style={{
             position: "absolute", inset: -2,
             width: "calc(100% + 4px)", height: "calc(100% + 4px)",
