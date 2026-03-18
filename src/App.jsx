@@ -202,13 +202,24 @@ function HeroMosaic() {
   useEffect(() => {
     const offsets = COLUMNS.map(() => 0);
     const speeds = COLUMNS.map((_, i) => 1 / ((22 + i * 3) * 60));
+    const initialized = COLUMNS.map(() => false);
     let raf;
     const animate = () => {
       colRefs.current.forEach((el, i) => {
         if (!el) return;
         const copyHeight = el.scrollHeight / 4;
-        offsets[i] -= speeds[i] * copyHeight;
-        if (offsets[i] <= -copyHeight) offsets[i] += copyHeight;
+        if (!initialized[i]) {
+          if (i % 2 === 1) offsets[i] = -copyHeight;
+          initialized[i] = true;
+        }
+        const goingDown = i % 2 === 1;
+        if (goingDown) {
+          offsets[i] += speeds[i] * copyHeight;
+          if (offsets[i] >= 0) offsets[i] -= copyHeight;
+        } else {
+          offsets[i] -= speeds[i] * copyHeight;
+          if (offsets[i] <= -copyHeight) offsets[i] += copyHeight;
+        }
         el.style.transform = `translate3d(0, ${offsets[i]}px, 0)`;
       });
       raf = requestAnimationFrame(animate);
