@@ -157,18 +157,6 @@ function Nav() {
 function MosaicCard({ card }) {
   const ref = useRef(null);
   const [active, setActive] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) setActive(true); },
-      { rootMargin: "200px" }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-
   const [posterVisible, setPosterVisible] = useState(true);
 
   useEffect(() => {
@@ -195,16 +183,14 @@ function MosaicCard({ card }) {
       flexShrink: 0,
     }}>
       {isMp4 ? (
-        active && (
-          <video
-            src={card.video}
-            autoPlay muted loop playsInline
-            style={{
-              position: "absolute", inset: 0, width: "100%", height: "100%",
-              objectFit: "cover", pointerEvents: "none",
-            }}
-          />
-        )
+        <video
+          src={card.video}
+          autoPlay muted loop playsInline
+          style={{
+            position: "absolute", inset: 0, width: "100%", height: "100%",
+            objectFit: "cover", pointerEvents: "none",
+          }}
+        />
       ) : isCloudflareIframe ? (
         <>
           {active && (
