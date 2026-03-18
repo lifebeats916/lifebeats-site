@@ -169,6 +169,14 @@ function MosaicCard({ card }) {
     return () => obs.disconnect();
   }, []);
 
+  const [posterVisible, setPosterVisible] = useState(true);
+
+  useEffect(() => {
+    if (!active) return;
+    const t = setTimeout(() => setPosterVisible(false), 3000);
+    return () => clearTimeout(t);
+  }, [active]);
+
   const isCloudflare = card.video && card.video.includes("cloudflarestream.com");
   const posterUrl = isCloudflare ? (() => {
     try { return new URL(card.video).searchParams.get("poster"); } catch { return null; }
@@ -181,23 +189,28 @@ function MosaicCard({ card }) {
       flexShrink: 0,
     }}>
       {isCloudflare ? (
-        active ? (
-          <iframe
-            src={card.video}
-            allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen"
-            allowFullScreen
-            style={{
-              position: "absolute", inset: -2,
-              width: "calc(100% + 4px)", height: "calc(100% + 4px)",
-              border: "none", pointerEvents: "none",
-            }}
-          />
-        ) : (
-          posterUrl && <img src={posterUrl} alt="" style={{
-            position: "absolute", inset: 0, width: "100%", height: "100%",
-            objectFit: "cover", pointerEvents: "none",
-          }} />
-        )
+        <>
+          {active && (
+            <iframe
+              src={card.video}
+              allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen"
+              allowFullScreen
+              style={{
+                position: "absolute", inset: -2,
+                width: "calc(100% + 4px)", height: "calc(100% + 4px)",
+                border: "none", pointerEvents: "none",
+              }}
+            />
+          )}
+          {posterUrl && (
+            <img src={posterUrl} alt="" style={{
+              position: "absolute", inset: 0, width: "100%", height: "100%",
+              objectFit: "cover", pointerEvents: "none",
+              opacity: posterVisible ? 1 : 0,
+              transition: "opacity 0.8s ease",
+            }} />
+          )}
+        </>
       ) : card.video ? (
         <video src={card.video} autoPlay muted loop playsInline style={{
           position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover",
