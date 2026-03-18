@@ -186,7 +186,7 @@ function MosaicCard({ card }) {
           src={card.video}
           allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen"
           allowFullScreen
-          onLoad={() => setPosterVisible(false)}
+          onLoad={() => setTimeout(() => setPosterVisible(false), 800)}
           style={{
             position: "absolute", inset: -2,
             width: "calc(100% + 4px)", height: "calc(100% + 4px)",
