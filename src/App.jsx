@@ -172,10 +172,15 @@ function MosaicCard({ card }) {
   const [posterVisible, setPosterVisible] = useState(true);
 
   useEffect(() => {
-    if (!active) return;
-    const t = setTimeout(() => setPosterVisible(false), 3000);
-    return () => clearTimeout(t);
-  }, [active]);
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) setActive(true); },
+      { rootMargin: "800px" }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
 
   const isCloudflare = card.video && card.video.includes("cloudflarestream.com");
   const posterUrl = isCloudflare ? (() => {
@@ -195,6 +200,7 @@ function MosaicCard({ card }) {
               src={card.video}
               allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen"
               allowFullScreen
+              onLoad={() => setPosterVisible(false)}
               style={{
                 position: "absolute", inset: -2,
                 width: "calc(100% + 4px)", height: "calc(100% + 4px)",
@@ -207,7 +213,7 @@ function MosaicCard({ card }) {
               position: "absolute", inset: 0, width: "100%", height: "100%",
               objectFit: "cover", pointerEvents: "none",
               opacity: posterVisible ? 1 : 0,
-              transition: "opacity 0.8s ease",
+              transition: "opacity 0.6s ease",
             }} />
           )}
         </>
