@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const C = {
   bg: "#1a1a2e",
@@ -154,26 +154,23 @@ function Nav() {
 }
 
 /* ── MOSAIC CARD ─────────────────────────────── */
-function MosaicCard({ card, registerCanvas, unregisterCanvas }) {
-  const canvasRef = useRef(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    registerCanvas(canvas);
-    return () => unregisterCanvas(canvas);
-  }, [registerCanvas, unregisterCanvas]);
-
+function MosaicCard({ card }) {
   return (
     <div style={{
       width: "100%", aspectRatio: "4/5", borderRadius: 14,
       background: card.bg, position: "relative", overflow: "hidden",
       flexShrink: 0,
     }}>
-      <canvas ref={canvasRef} width={540} height={675} style={{
-        position: "absolute", inset: 0, width: "100%", height: "100%",
-        pointerEvents: "none",
-      }} />
+      {card.video && (
+        <video
+          src={card.video}
+          autoPlay muted loop playsInline
+          style={{
+            position: "absolute", inset: 0, width: "100%", height: "100%",
+            objectFit: "cover", pointerEvents: "none",
+          }}
+        />
+      )}
     </div>
   );
 }
@@ -183,28 +180,6 @@ function HeroMosaic() {
   const [loaded, setLoaded] = useState(false);
   useEffect(() => { setTimeout(() => setLoaded(true), 200); }, []);
 
-  const masterVideoRef = useRef(null);
-  const canvasSetRef = useRef(new Set());
-  const mp4Src = MOSAIC.find(c => c.video?.endsWith(".mp4"))?.video;
-
-  const registerCanvas = useCallback((canvas) => canvasSetRef.current.add(canvas), []);
-  const unregisterCanvas = useCallback((canvas) => canvasSetRef.current.delete(canvas), []);
-
-  useEffect(() => {
-    const video = masterVideoRef.current;
-    if (!video) return;
-    let animId;
-    const draw = () => {
-      if (!video.paused && video.readyState >= 2) {
-        canvasSetRef.current.forEach(canvas => {
-          try { canvas.getContext("2d").drawImage(video, 0, 0, canvas.width, canvas.height); } catch {}
-        });
-      }
-      animId = requestAnimationFrame(draw);
-    };
-    animId = requestAnimationFrame(draw);
-    return () => cancelAnimationFrame(animId);
-  }, []);
 
   return (
     <section id="work" style={{
@@ -212,11 +187,6 @@ function HeroMosaic() {
       overflow: "hidden", background: C.bg,
       margin: 0, padding: 0,
     }}>
-      {mp4Src && (
-        <video ref={masterVideoRef} src={mp4Src} autoPlay muted loop playsInline
-          style={{ display: "none" }}
-        />
-      )}
       {/* Mosaic grid behind everything */}
       <div style={{
         position: "absolute", top: 0, left: 0, right: 0, bottom: 0, zIndex: 0,
@@ -232,7 +202,7 @@ function HeroMosaic() {
             willChange: "transform",
           }}>
             {col.map((card, i) => (
-              <MosaicCard key={`${ci}-${i}`} card={card} registerCanvas={registerCanvas} unregisterCanvas={unregisterCanvas} />
+              <MosaicCard key={`${ci}-${i}`} card={card} />
             ))}
           </div>
         ))}
