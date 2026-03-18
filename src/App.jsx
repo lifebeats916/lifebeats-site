@@ -214,7 +214,6 @@ function HeroMosaic() {
     }}>
       {mp4Src && (
         <video ref={masterVideoRef} src={mp4Src} autoPlay muted loop playsInline
-          crossOrigin="anonymous"
           style={{ display: "none" }}
         />
       )}
