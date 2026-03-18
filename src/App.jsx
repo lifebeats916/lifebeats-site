@@ -49,7 +49,7 @@ const MOSAIC = [
   { title: "Mist", client: "Dropbox", video: "https://customer-2qq5swrnyq0tcvng.cloudflarestream.com/5b17718826df11cd63c8414eaf08936a/iframe?muted=true&preload=true&loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-2qq5swrnyq0tcvng.cloudflarestream.com%2F5b17718826df11cd63c8414eaf08936a%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600", bg: "#1b3a4e" },
 ];
 
-const NUM_COLS = 7;
+const NUM_COLS = 5;
 const COLUMNS = Array.from({ length: NUM_COLS }, (_, ci) => {
   const cards = MOSAIC.filter((_, i) => i % NUM_COLS === ci);
   return [...cards, ...cards, ...cards, ...cards];
