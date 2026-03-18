@@ -198,6 +198,24 @@ function HeroMosaic() {
   const [loaded, setLoaded] = useState(false);
   useEffect(() => { setTimeout(() => setLoaded(true), 200); }, []);
 
+  const colRefs = useRef([]);
+  useEffect(() => {
+    const offsets = COLUMNS.map(() => 0);
+    const speeds = COLUMNS.map((_, i) => 1 / ((22 + i * 3) * 60));
+    let raf;
+    const animate = () => {
+      colRefs.current.forEach((el, i) => {
+        if (!el) return;
+        const copyHeight = el.scrollHeight / 4;
+        offsets[i] -= speeds[i] * copyHeight;
+        if (offsets[i] <= -copyHeight) offsets[i] += copyHeight;
+        el.style.transform = `translate3d(0, ${offsets[i]}px, 0)`;
+      });
+      raf = requestAnimationFrame(animate);
+    };
+    raf = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(raf);
+  }, []);
 
   return (
     <section id="work" style={{
@@ -214,9 +232,8 @@ function HeroMosaic() {
         margin: 0, padding: 0,
       }}>
         {COLUMNS.map((col, ci) => (
-          <div key={ci} style={{
+          <div key={ci} ref={el => colRefs.current[ci] = el} style={{
             display: "flex", flexDirection: "column", gap: 3,
-            animation: `scrollDown ${22 + ci * 3}s linear infinite`,
             willChange: "transform",
           }}>
             {col.map((card, i) => (
