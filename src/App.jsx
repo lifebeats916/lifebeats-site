@@ -302,19 +302,11 @@ function HeroMosaic() {
           }}>impossible</span> things.
         </h1>
 
-        {/* Subtitle */}
-        <p style={{
-          fontFamily: "'DM Sans', sans-serif", fontSize: 18, color: "rgba(255,255,255,0.6)",
-          maxWidth: 480, margin: "16px auto 36px", lineHeight: 1.6,
-          opacity: loaded ? 1 : 0, transition: "all 0.8s ease 0.5s",
-        }}>
-          Motion graphics, cinematic video, and bold visual identities — crafted for brands that dare to be different.
-        </p>
-
         {/* Buttons */}
         <div style={{
           display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap",
-          opacity: loaded ? 1 : 0, transition: "all 0.8s ease 0.65s",
+          marginTop: 20,
+          opacity: loaded ? 1 : 0, transition: "all 0.8s ease 0.5s",
         }}>
           <a href="#about" style={{
             padding: "16px 40px", borderRadius: 50,
