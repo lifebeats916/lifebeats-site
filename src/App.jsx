@@ -17,10 +17,10 @@ const C = {
 /* Replace the video paths below with your actual video files */
 /* e.g. "/videos/neon-pulse.mp4" or "https://your-cdn.com/videos/neon-pulse.mp4" */
 const MOSAIC = [
-  { title: "Neon Pulse", client: "Spotify", video: "/videos/az_2025_mk_lu_lubd_soc_osn_1080x1350 (THURSDAY).mp4", bg: "#2d1b4e" },
-  { title: "Fluid State", client: "Nike", video: "/videos/cedc_2026_mk_ps_soc_osd_1080x1350 (OSN).mp4", bg: "#1b3a5c" },
-  { title: "Chromatic", client: "Adobe", video: "/videos/fk_2026_mk_osd_soc_1080x1350.mp4", bg: "#5c3a1b" },
-  { title: "Data Bloom", client: "Tesla", video: "/videos/omf_2023_de_ka_cropped_1080x1350 (Tinlicker).mp4", bg: "#1b4e3a" },
+  { title: "Neon Pulse", client: "Spotify", video: "https://customer-2qq5swrnyq0tcvng.cloudflarestream.com/25f2d426e7eb1500860aecf1789c9221/iframe?muted=true&preload=true&loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-2qq5swrnyq0tcvng.cloudflarestream.com%2F25f2d426e7eb1500860aecf1789c9221%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600", bg: "#2d1b4e" },
+  { title: "Fluid State", client: "Nike", video: "https://customer-2qq5swrnyq0tcvng.cloudflarestream.com/f91539c718e4e772a68f385326777ce5/iframe?muted=true&preload=true&loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-2qq5swrnyq0tcvng.cloudflarestream.com%2Ff91539c718e4e772a68f385326777ce5%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600", bg: "#1b3a5c" },
+  { title: "Chromatic", client: "Adobe", video: "https://customer-2qq5swrnyq0tcvng.cloudflarestream.com/3cde05d2cd63360f18e859c4cd05e864/iframe?muted=true&preload=true&loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-2qq5swrnyq0tcvng.cloudflarestream.com%2F3cde05d2cd63360f18e859c4cd05e864%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600", bg: "#5c3a1b" },
+  { title: "Data Bloom", client: "Tesla", video: "https://customer-2qq5swrnyq0tcvng.cloudflarestream.com/7403bc5e3bea6988587d6b4b8f85a5cf/iframe?muted=true&preload=true&loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-2qq5swrnyq0tcvng.cloudflarestream.com%2F7403bc5e3bea6988587d6b4b8f85a5cf%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600", bg: "#1b4e3a" },
   { title: "Synth Wave", client: "Apple", video: "https://customer-2qq5swrnyq0tcvng.cloudflarestream.com/53bd70a868967bdfa87210c0bb67173b/iframe?muted=true&preload=true&loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-2qq5swrnyq0tcvng.cloudflarestream.com%2F53bd70a868967bdfa87210c0bb67173b%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600", bg: "#3a1b5c" },
   { title: "Geo Grid", client: "Airbnb", video: "https://customer-2qq5swrnyq0tcvng.cloudflarestream.com/34a1279310a2dba731c69bfd64ee345d/iframe?muted=true&preload=true&loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-2qq5swrnyq0tcvng.cloudflarestream.com%2F34a1279310a2dba731c69bfd64ee345d%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600", bg: "#5c1b2d" },
   { title: "Holo Type", client: "Google", video: "https://customer-2qq5swrnyq0tcvng.cloudflarestream.com/020d413b513c085a945804982bcc4b00/iframe?muted=true&preload=true&loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-2qq5swrnyq0tcvng.cloudflarestream.com%2F020d413b513c085a945804982bcc4b00%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600", bg: "#1b4e5c" },
@@ -183,7 +183,6 @@ function MosaicCard({ card }) {
   }, []);
 
   const isCloudflare = card.video && card.video.includes("cloudflarestream.com");
-  const isLocal = card.video && !isCloudflare;
   const posterUrl = isCloudflare ? (() => {
     try { return new URL(card.video).searchParams.get("poster"); } catch { return null; }
   })() : null;
@@ -194,16 +193,7 @@ function MosaicCard({ card }) {
       background: card.bg, position: "relative", overflow: "hidden",
       flexShrink: 0,
     }}>
-      {isLocal ? (
-        <video
-          src={card.video}
-          autoPlay muted loop playsInline
-          style={{
-            position: "absolute", inset: 0, width: "100%", height: "100%",
-            objectFit: "cover", pointerEvents: "none",
-          }}
-        />
-      ) : isCloudflare ? (
+      {isCloudflare ? (
         <>
           {active && (
             <iframe
