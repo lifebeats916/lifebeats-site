@@ -72,7 +72,7 @@ const STORE_ITEMS = [
   { id: 6, name: "Social Media Kit", price: 59, color: C.orange, tag: "" },
 ];
 
-const CLIENTS = ["Spotify", "Nike", "Adobe", "Tesla", "Apple Music", "Airbnb", "Google", "Meta", "Netflix", "Discord", "Figma", "Stripe"];
+const CLIENTS = ["Insomniac", "EDC", "Beyond Wonderland", "Tomorrowland", "Kaskade", "Day Trip", "Nocturnal Wonderland", "Rolling Loud", "Okeechobee"];
 
 function useInView(threshold = 0.08) {
   const ref = useRef(null);
