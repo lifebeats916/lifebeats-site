@@ -243,8 +243,8 @@ function HeroMosaic() {
       <div style={{
         position: "absolute", inset: 0, zIndex: 1,
         background: `
-          radial-gradient(ellipse 70% 55% at 50% 50%, rgba(26,26,46,0.6) 0%, rgba(26,26,46,0.2) 60%, rgba(26,26,46,0.65) 100%),
-          linear-gradient(to bottom, rgba(26,26,46,0.35) 0%, rgba(26,26,46,0.1) 30%, rgba(26,26,46,0.1) 70%, rgba(26,26,46,0.75) 100%)
+          radial-gradient(ellipse 70% 55% at 50% 50%, rgba(26,26,46,0.78) 0%, rgba(26,26,46,0.45) 60%, rgba(26,26,46,0.82) 100%),
+          linear-gradient(to bottom, rgba(26,26,46,0.5) 0%, rgba(26,26,46,0.25) 30%, rgba(26,26,46,0.25) 70%, rgba(26,26,46,0.88) 100%)
         `,
         pointerEvents: "none",
       }} />
