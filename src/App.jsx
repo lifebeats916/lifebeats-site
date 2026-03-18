@@ -109,8 +109,8 @@ function Nav() {
   return (
     <nav style={{
       position: "fixed", top: 16, left: "50%", transform: "translateX(-50%)",
-      zIndex: 100, display: "flex", alignItems: "center", gap: 6,
-      padding: "8px 8px 8px 16px",
+      zIndex: 100, display: "flex", alignItems: "center", gap: 4,
+      padding: "6px 6px 6px 12px", maxWidth: "calc(100vw - 24px)",
       background: scrolled ? "rgba(26,26,46,0.85)" : "rgba(26,26,46,0.4)",
       backdropFilter: "blur(24px)", WebkitBackdropFilter: "blur(24px)",
       borderRadius: 60, border: "1px solid rgba(255,255,255,0.08)",
@@ -132,10 +132,10 @@ function Nav() {
         { label: "About", href: "#about", bg: "#FF6B9D", color: "#fff" },
       ].map(l => (
         <a key={l.label} href={l.href} style={{
-          padding: "6px 16px", borderRadius: 30, fontSize: 14,
+          padding: "6px 12px", borderRadius: 30, fontSize: 14,
           fontFamily: "'DM Sans', sans-serif", fontWeight: 700,
           background: l.bg, color: l.color,
-          textDecoration: "none", transition: "all 0.3s",
+          textDecoration: "none", transition: "all 0.3s", whiteSpace: "nowrap",
         }}
         onMouseEnter={e => e.target.style.transform = "scale(1.06)"}
         onMouseLeave={e => e.target.style.transform = "scale(1)"}
@@ -144,7 +144,7 @@ function Nav() {
       <a href="#contact" style={{
         padding: "6px 16px", borderRadius: 30, background: "#A478F2", color: "#fff",
         fontSize: 14, fontFamily: "'DM Sans', sans-serif", fontWeight: 700,
-        textDecoration: "none", transition: "transform 0.3s",
+        textDecoration: "none", transition: "transform 0.3s", whiteSpace: "nowrap",
       }}
       onMouseEnter={e => e.target.style.transform = "scale(1.06)"}
       onMouseLeave={e => e.target.style.transform = "scale(1)"}
