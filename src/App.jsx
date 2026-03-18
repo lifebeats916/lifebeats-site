@@ -142,33 +142,19 @@ function Nav() {
 
 /* ── MOSAIC CARD ─────────────────────────────── */
 function MosaicCard({ card }) {
-  const ref = useRef(null);
-  const [active, setActive] = useState(false);
   const [posterVisible, setPosterVisible] = useState(true);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) setActive(true); },
-      { rootMargin: "800px" }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-
   const isCloudflare = card.video && card.video.includes("cloudflarestream.com");
   const posterUrl = isCloudflare ? (() => {
     try { return new URL(card.video).searchParams.get("poster"); } catch { return null; }
   })() : null;
 
   return (
-    <div ref={ref} style={{
+    <div style={{
       width: "100%", aspectRatio: "4/5", borderRadius: 14,
       background: card.bg, position: "relative", overflow: "hidden",
       flexShrink: 0,
     }}>
-      {isCloudflare && active && (
+      {isCloudflare && (
         <iframe
           src={card.video}
           allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen"
@@ -201,7 +187,7 @@ function HeroMosaic() {
   const colRefs = useRef([]);
   useEffect(() => {
     const offsets = COLUMNS.map(() => 0);
-    const speeds = COLUMNS.map((_, i) => 1 / ((22 + i * 3) * 60));
+    const pxPerFrame = [0.5, 0.4, 0.55, 0.45];
     const initialized = COLUMNS.map(() => false);
     let raf;
     const animate = () => {
@@ -214,10 +200,10 @@ function HeroMosaic() {
         }
         const goingDown = i % 2 === 1;
         if (goingDown) {
-          offsets[i] += speeds[i] * copyHeight;
+          offsets[i] += pxPerFrame[i];
           if (offsets[i] >= 0) offsets[i] -= copyHeight;
         } else {
-          offsets[i] -= speeds[i] * copyHeight;
+          offsets[i] -= pxPerFrame[i];
           if (offsets[i] <= -copyHeight) offsets[i] += copyHeight;
         }
         el.style.transform = `translate3d(0, ${offsets[i]}px, 0)`;
