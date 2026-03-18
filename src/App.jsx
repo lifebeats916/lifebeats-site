@@ -154,68 +154,26 @@ function Nav() {
 }
 
 /* ── MOSAIC CARD ─────────────────────────────── */
-function MosaicCard({ card }) {
-  const ref = useRef(null);
-  const [active, setActive] = useState(false);
-  const [posterVisible, setPosterVisible] = useState(true);
+function MosaicCard({ card, registerCanvas, unregisterCanvas }) {
+  const canvasRef = useRef(null);
 
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) setActive(true); },
-      { rootMargin: "800px" }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-
-  const isMp4 = card.video && card.video.endsWith(".mp4");
-  const isCloudflareIframe = card.video && card.video.includes("cloudflarestream.com") && !isMp4;
-  const posterUrl = isCloudflareIframe ? (() => {
-    try { return new URL(card.video).searchParams.get("poster"); } catch { return null; }
-  })() : null;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    registerCanvas(canvas);
+    return () => unregisterCanvas(canvas);
+  }, [registerCanvas, unregisterCanvas]);
 
   return (
-    <div ref={ref} style={{
+    <div style={{
       width: "100%", aspectRatio: "4/5", borderRadius: 14,
       background: card.bg, position: "relative", overflow: "hidden",
       flexShrink: 0,
     }}>
-      {isMp4 ? (
-        <video
-          src={card.video}
-          autoPlay muted loop playsInline
-          style={{
-            position: "absolute", inset: 0, width: "100%", height: "100%",
-            objectFit: "cover", pointerEvents: "none",
-          }}
-        />
-      ) : isCloudflareIframe ? (
-        <>
-          {active && (
-            <iframe
-              src={card.video}
-              allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen"
-              allowFullScreen
-              onLoad={() => setPosterVisible(false)}
-              style={{
-                position: "absolute", inset: -2,
-                width: "calc(100% + 4px)", height: "calc(100% + 4px)",
-                border: "none", pointerEvents: "none",
-              }}
-            />
-          )}
-          {posterUrl && (
-            <img src={posterUrl} alt="" style={{
-              position: "absolute", inset: 0, width: "100%", height: "100%",
-              objectFit: "cover", pointerEvents: "none",
-              opacity: posterVisible ? 1 : 0,
-              transition: "opacity 0.6s ease",
-            }} />
-          )}
-        </>
-      ) : null}
+      <canvas ref={canvasRef} width={540} height={675} style={{
+        position: "absolute", inset: 0, width: "100%", height: "100%",
+        pointerEvents: "none",
+      }} />
     </div>
   );
 }
@@ -225,12 +183,41 @@ function HeroMosaic() {
   const [loaded, setLoaded] = useState(false);
   useEffect(() => { setTimeout(() => setLoaded(true), 200); }, []);
 
+  const masterVideoRef = useRef(null);
+  const canvasSetRef = useRef(new Set());
+  const mp4Src = MOSAIC.find(c => c.video?.endsWith(".mp4"))?.video;
+
+  const registerCanvas = useCallback((canvas) => canvasSetRef.current.add(canvas), []);
+  const unregisterCanvas = useCallback((canvas) => canvasSetRef.current.delete(canvas), []);
+
+  useEffect(() => {
+    const video = masterVideoRef.current;
+    if (!video) return;
+    let animId;
+    const draw = () => {
+      if (!video.paused && video.readyState >= 2) {
+        canvasSetRef.current.forEach(canvas => {
+          try { canvas.getContext("2d").drawImage(video, 0, 0, canvas.width, canvas.height); } catch {}
+        });
+      }
+      animId = requestAnimationFrame(draw);
+    };
+    animId = requestAnimationFrame(draw);
+    return () => cancelAnimationFrame(animId);
+  }, []);
+
   return (
     <section id="work" style={{
       position: "relative", width: "100%", height: "100dvh",
       overflow: "hidden", background: C.bg,
       margin: 0, padding: 0,
     }}>
+      {mp4Src && (
+        <video ref={masterVideoRef} src={mp4Src} autoPlay muted loop playsInline
+          crossOrigin="anonymous"
+          style={{ display: "none" }}
+        />
+      )}
       {/* Mosaic grid behind everything */}
       <div style={{
         position: "absolute", top: 0, left: 0, right: 0, bottom: 0, zIndex: 0,
@@ -246,7 +233,7 @@ function HeroMosaic() {
             willChange: "transform",
           }}>
             {col.map((card, i) => (
-              <MosaicCard key={`${ci}-${i}`} card={card} />
+              <MosaicCard key={`${ci}-${i}`} card={card} registerCanvas={registerCanvas} unregisterCanvas={unregisterCanvas} />
             ))}
           </div>
         ))}
