@@ -52,7 +52,7 @@ const MOSAIC = [
 const NUM_COLS = 7;
 const COLUMNS = Array.from({ length: NUM_COLS }, (_, ci) => {
   const cards = MOSAIC.filter((_, i) => i % NUM_COLS === ci);
-  return [...cards, ...cards];
+  return [...cards, ...cards, ...cards, ...cards];
 });
 
 /* ── OTHER DATA ──────────────────────────────── */
@@ -214,7 +214,7 @@ function HeroMosaic() {
 
   return (
     <section id="work" style={{
-      position: "relative", width: "100%", height: "100vh",
+      position: "relative", width: "100%", height: "100dvh",
       overflow: "hidden", background: C.bg,
       margin: 0, padding: 0,
     }}>
@@ -612,7 +612,7 @@ export default function Lifebeats() {
           100% { transform: translateX(-50%); }
         }
         @keyframes scrollDown {
-          0% { transform: translateY(-50%); }
+          0% { transform: translateY(-25%); }
           100% { transform: translateY(0%); }
         }
         @keyframes gradientShift {
