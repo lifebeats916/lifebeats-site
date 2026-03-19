@@ -175,20 +175,32 @@ function HeroMosaic() {
   useEffect(() => {
     const pxPerFrame = [0.5, 0.35, 0.6, 0.42, 0.52];
     const startFractions = [0, 0.35, 0.15, 0.55, 0.75];
-    const offsets = COLUMNS.map(() => null);
+    const offsets = [];
+    const copyHeights = [];
     let raf;
-    const animate = () => {
+
+    // measure once after layout settles, then never touch scrollHeight again
+    const start = () => {
       colRefs.current.forEach((el, i) => {
         if (!el) return;
-        const copyHeight = el.scrollHeight / 4;
-        if (offsets[i] === null) offsets[i] = -copyHeight * startFractions[i];
-        offsets[i] -= pxPerFrame[i];
-        if (offsets[i] <= -copyHeight) offsets[i] += copyHeight;
-        el.style.transform = `translate3d(0, ${offsets[i]}px, 0)`;
+        copyHeights[i] = el.scrollHeight / 4;
+        offsets[i] = -copyHeights[i] * startFractions[i];
       });
+
+      const animate = () => {
+        colRefs.current.forEach((el, i) => {
+          if (!el) return;
+          offsets[i] -= pxPerFrame[i];
+          if (offsets[i] <= -copyHeights[i]) offsets[i] += copyHeights[i];
+          el.style.transform = `translate3d(0, ${offsets[i]}px, 0)`;
+        });
+        raf = requestAnimationFrame(animate);
+      };
       raf = requestAnimationFrame(animate);
     };
-    raf = requestAnimationFrame(animate);
+
+    // give the browser one frame to render cards before measuring
+    raf = requestAnimationFrame(start);
     return () => cancelAnimationFrame(raf);
   }, []);
 
