@@ -275,9 +275,12 @@ function HeroMosaic() {
             backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)",
             border: "1px solid rgba(255,255,255,0.1)",
           }}>
-            <img src="/Images/life logo.png" alt="Lifebeats" style={{
+            <video autoPlay loop muted playsInline style={{
               height: 132, width: "auto", display: "block",
-            }} />
+            }}>
+              <source src="https://pub-b4f402275ffd4de59e85f1b0a77c364f.r2.dev/LB LOGO 2.webm" type="video/webm" />
+              <source src="https://pub-b4f402275ffd4de59e85f1b0a77c364f.r2.dev/LB LOGO 1.mov" type="video/quicktime" />
+            </video>
           </div>
         </div>
 
