@@ -156,7 +156,7 @@ function MosaicCard({ card }) {
     <div style={{
       width: "100%", aspectRatio: "4/5", borderRadius: 14,
       background: card.bg, position: "relative", overflow: "hidden",
-      flexShrink: 0,
+      flexShrink: 0, marginBottom: 3,
     }}>
       <img src={card.image} alt="" style={{
         position: "absolute", inset: 0, width: "100%", height: "100%",
@@ -203,12 +203,12 @@ function HeroMosaic() {
         position: "absolute", top: 0, left: 0, right: 0, bottom: 0, zIndex: 0,
         display: "grid",
         gridTemplateColumns: `repeat(${NUM_COLS}, 1fr)`,
-        gap: 3,
+        columnGap: 3,
         margin: 0, padding: 0,
       }}>
         {COLUMNS.map((col, ci) => (
           <div key={ci} ref={el => colRefs.current[ci] = el} style={{
-            display: "flex", flexDirection: "column", gap: 3,
+            display: "flex", flexDirection: "column",
             willChange: "transform",
           }}>
             {col.map((card, i) => (
