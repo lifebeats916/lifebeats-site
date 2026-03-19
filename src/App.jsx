@@ -535,21 +535,19 @@ function Footer() {
       display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16,
     }}>
       <span style={{ fontFamily: "'Baloo 2', cursive", fontWeight: 800, fontSize: 18, color: C.sub }}>
-        <span style={{ color: C.pink }}>L</span>ifebeats
+        Lifebeats
       </span>
       <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: C.sub }}>
         © 2026 Lifebeats. All rights reserved.
       </span>
       <div style={{ display: "flex", gap: 20 }}>
-        {["Instagram", "Dribbble", "Behance", "Twitter"].map(s => (
-          <a key={s} href="#" style={{
-            fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: C.sub,
-            textDecoration: "none", transition: "color 0.3s",
-          }}
-          onMouseEnter={e => e.target.style.color = C.text}
-          onMouseLeave={e => e.target.style.color = C.sub}
-          >{s}</a>
-        ))}
+        <a href="https://instagram.com/lifebeats" target="_blank" rel="noreferrer" style={{
+          fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: C.sub,
+          textDecoration: "none", transition: "color 0.3s",
+        }}
+        onMouseEnter={e => e.target.style.color = C.text}
+        onMouseLeave={e => e.target.style.color = C.sub}
+        >Instagram</a>
       </div>
     </footer>
   );
