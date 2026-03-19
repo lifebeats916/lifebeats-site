@@ -47,10 +47,10 @@ const MOSAIC = [
 ];
 
 const NUM_COLS = 5;
-// 4 copies — CSS animation scrolls -25% (one copy), 4x ensures enough height on mobile
+// 8 copies — ensures enough height even on tall mobile screens with fewer cards per column
 const COLUMNS = Array.from({ length: NUM_COLS }, (_, ci) => {
   const cards = MOSAIC.filter((_, i) => i % NUM_COLS === ci);
-  return [...cards, ...cards, ...cards, ...cards];
+  return [...cards, ...cards, ...cards, ...cards, ...cards, ...cards, ...cards, ...cards];
 });
 
 /* ── OTHER DATA ──────────────────────────────── */
@@ -195,7 +195,7 @@ function HeroMosaic() {
       if (!copyHeights) {
         copyHeights = colRefs.current.map((el, i) => {
           if (!el) return 0;
-          const cardsPerCopy = COLUMNS[i].length / 4;
+          const cardsPerCopy = COLUMNS[i].length / 8;
           const card0 = el.children[0];
           const card1 = el.children[cardsPerCopy]; // first card of copy 2
           if (!card0 || !card1) return 0;
