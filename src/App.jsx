@@ -62,12 +62,6 @@ const COL_ANIM = [
 ];
 
 /* ── OTHER DATA ──────────────────────────────── */
-const TEAM = [
-  { name: "Alex Rivera", role: "Creative Director", color: C.pink },
-  { name: "Jordan Kim", role: "Motion Designer", color: C.blue },
-  { name: "Sam Okafor", role: "Video Editor", color: C.green },
-  { name: "Maya Chen", role: "Graphic Designer", color: C.yellow },
-];
 
 const STORE_ITEMS = [
   { id: 1, name: "Motion Template Pack", price: 49, color: C.pink, tag: "BEST SELLER" },
@@ -351,7 +345,7 @@ function About() {
           borderRadius: 32, padding: "60px 48px",
           background: "rgba(255,255,255,0.04)",
           border: "1px solid rgba(255,255,255,0.07)",
-          display: "grid", gridTemplateColumns: "1fr 1fr", gap: 48, alignItems: "center",
+          display: "block",
         }}>
           <div>
             <div style={{
@@ -378,29 +372,6 @@ function About() {
                 </div>
               ))}
             </div>
-          </div>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
-            {TEAM.map((t, i) => (
-              <Reveal key={t.name} delay={i * 0.08}>
-                <div style={{
-                  borderRadius: 22, padding: 24,
-                  background: `${t.color}0A`, border: `1.5px solid ${t.color}1A`,
-                  transition: "all 0.35s cubic-bezier(0.16,1,0.3,1)", cursor: "default",
-                }}
-                onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-4px) scale(1.02)"; e.currentTarget.style.borderColor = t.color + "40"; }}
-                onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0) scale(1)"; e.currentTarget.style.borderColor = t.color + "1A"; }}
-                >
-                  <div style={{
-                    width: 44, height: 44, borderRadius: 14,
-                    background: `${t.color}20`, display: "flex", alignItems: "center", justifyContent: "center",
-                    fontFamily: "'Baloo 2', cursive", fontSize: 20, fontWeight: 800,
-                    color: t.color, marginBottom: 14,
-                  }}>{t.name[0]}</div>
-                  <div style={{ fontFamily: "'Baloo 2', cursive", fontSize: 15, fontWeight: 700, color: C.text, marginBottom: 2 }}>{t.name}</div>
-                  <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: C.sub }}>{t.role}</div>
-                </div>
-              </Reveal>
-            ))}
           </div>
         </div>
       </Reveal>
