@@ -263,26 +263,21 @@ function HeroMosaic() {
         justifyContent: "center", alignItems: "center", textAlign: "center",
         padding: "0 24px",
       }}>
-        {/* Logo / badge */}
+        {/* Logo badge */}
         <div ref={badgeRef} style={{
           opacity: 0, transform: "translateY(20px)",
-          marginBottom: 28,
+          marginBottom: 28, display: "flex", justifyContent: "center",
         }}>
           <div style={{
-            display: "inline-flex", alignItems: "center", gap: 10,
-            padding: "10px 24px", borderRadius: 40,
+            display: "inline-flex", alignItems: "center", justifyContent: "center",
+            padding: "12px 20px", borderRadius: 40,
             background: "rgba(255,255,255,0.08)",
             backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)",
             border: "1px solid rgba(255,255,255,0.1)",
-            fontFamily: "'Baloo 2', cursive", fontSize: 18, fontWeight: 800,
-            letterSpacing: "-1px",
           }}>
-            <span style={{
-              background: `linear-gradient(90deg, ${C.pink}, ${C.yellow}, ${C.cyan}, ${C.green}, ${C.purple}, ${C.pink})`,
-              backgroundSize: "300% 100%",
-              WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
-              animation: "gradientShift 4s ease-in-out infinite",
-            }}>LIFEBEATS</span>
+            <img src="/Images/life logo.png" alt="Lifebeats" style={{
+              height: 64, width: "auto", display: "block",
+            }} />
           </div>
         </div>
 
