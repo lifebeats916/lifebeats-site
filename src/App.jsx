@@ -17,26 +17,36 @@ const C = {
 /* Replace the video paths below with your actual video files */
 /* e.g. "/videos/neon-pulse.mp4" or "https://your-cdn.com/videos/neon-pulse.mp4" */
 const MOSAIC = [
-  { title: "Neon Pulse", client: "Spotify", video: "https://customer-2qq5swrnyq0tcvng.cloudflarestream.com/994ca8d9ec4448fc5ff252c0dd150c90/iframe?muted=true&preload=true&loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-2qq5swrnyq0tcvng.cloudflarestream.com%2F994ca8d9ec4448fc5ff252c0dd150c90%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600", bg: "#2d1b4e" },
-  { title: "Fluid State", client: "Nike", video: "https://customer-2qq5swrnyq0tcvng.cloudflarestream.com/af333d7c4932d79de3c01b2d0e195c3c/iframe?muted=true&preload=true&loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-2qq5swrnyq0tcvng.cloudflarestream.com%2Faf333d7c4932d79de3c01b2d0e195c3c%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600", bg: "#1b3a5c" },
-  { title: "Chromatic", client: "Adobe", video: "https://customer-2qq5swrnyq0tcvng.cloudflarestream.com/08c9e764e6817d650d5020ec2243ad50/iframe?muted=true&preload=true&loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-2qq5swrnyq0tcvng.cloudflarestream.com%2F08c9e764e6817d650d5020ec2243ad50%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600", bg: "#5c3a1b" },
-  { title: "Data Bloom", client: "Tesla", video: "https://customer-2qq5swrnyq0tcvng.cloudflarestream.com/9d4db0290887548bc14016ffec181468/iframe?muted=true&preload=true&loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-2qq5swrnyq0tcvng.cloudflarestream.com%2F9d4db0290887548bc14016ffec181468%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600", bg: "#1b4e3a" },
-  { title: "Synth Wave", client: "Apple", video: "https://customer-2qq5swrnyq0tcvng.cloudflarestream.com/6b9fa15d8d322c2cb8f4fd5536f280c9/iframe?muted=true&preload=true&loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-2qq5swrnyq0tcvng.cloudflarestream.com%2F6b9fa15d8d322c2cb8f4fd5536f280c9%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600", bg: "#3a1b5c" },
-  { title: "Geo Grid", client: "Airbnb", video: "https://customer-2qq5swrnyq0tcvng.cloudflarestream.com/3c730d510148e3d42460ab529879f3fe/iframe?muted=true&preload=true&loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-2qq5swrnyq0tcvng.cloudflarestream.com%2F3c730d510148e3d42460ab529879f3fe%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600", bg: "#5c1b2d" },
-  { title: "Holo Type", client: "Google", video: "https://customer-2qq5swrnyq0tcvng.cloudflarestream.com/abed34ed592e28c0c2684450823c7d39/iframe?muted=true&preload=true&loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-2qq5swrnyq0tcvng.cloudflarestream.com%2Fabed34ed592e28c0c2684450823c7d39%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600", bg: "#1b4e5c" },
-  { title: "Prism", client: "Meta", video: "https://customer-2qq5swrnyq0tcvng.cloudflarestream.com/512071acc96ef9ebc1c36933c13b1781/iframe?muted=true&preload=true&loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-2qq5swrnyq0tcvng.cloudflarestream.com%2F512071acc96ef9ebc1c36933c13b1781%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600", bg: "#2d1b5c" },
-  { title: "Kinetic", client: "Netflix", video: "https://customer-2qq5swrnyq0tcvng.cloudflarestream.com/0bb6b0e87f76df5fcd0d74d9b455f895/iframe?muted=true&preload=true&loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-2qq5swrnyq0tcvng.cloudflarestream.com%2F0bb6b0e87f76df5fcd0d74d9b455f895%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600", bg: "#5c1b1b" },
-  { title: "Morph", client: "Discord", video: "https://customer-2qq5swrnyq0tcvng.cloudflarestream.com/457a71481fe069c6a720a71f43da28c1/iframe?muted=true&preload=true&loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-2qq5swrnyq0tcvng.cloudflarestream.com%2F457a71481fe069c6a720a71f43da28c1%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600", bg: "#2d4e1b" },
-  { title: "Ripple", client: "Figma", video: "https://customer-2qq5swrnyq0tcvng.cloudflarestream.com/705a78f6949cf950090fa99e50dabeb3/iframe?muted=true&preload=true&loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-2qq5swrnyq0tcvng.cloudflarestream.com%2F705a78f6949cf950090fa99e50dabeb3%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600", bg: "#1b3050" },
-  { title: "Echo", client: "Snap", video: "https://customer-2qq5swrnyq0tcvng.cloudflarestream.com/a2e48eaeed0e816c79fcd8daf2d61de4/iframe?muted=true&preload=true&loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-2qq5swrnyq0tcvng.cloudflarestream.com%2Fa2e48eaeed0e816c79fcd8daf2d61de4%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600", bg: "#5c2d1b" },
-  { title: "Bloom", client: "Pinterest", video: "https://customer-2qq5swrnyq0tcvng.cloudflarestream.com/d1033977533b3a720b4791238f5119f5/iframe?muted=true&preload=true&loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-2qq5swrnyq0tcvng.cloudflarestream.com%2Fd1033977533b3a720b4791238f5119f5%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600", bg: "#4e1b5c" },
-  { title: "Nova", client: "Shopify", video: "https://customer-2qq5swrnyq0tcvng.cloudflarestream.com/f38abc9f7c3d9aeecbc7d1b8ff30782d/iframe?muted=true&preload=true&loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-2qq5swrnyq0tcvng.cloudflarestream.com%2Ff38abc9f7c3d9aeecbc7d1b8ff30782d%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600", bg: "#3a5c1b" },
-  { title: "Drift", client: "Slack", video: "https://customer-2qq5swrnyq0tcvng.cloudflarestream.com/0350a55f5fbf204911aa7d76dae836b7/iframe?muted=true&preload=true&loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-2qq5swrnyq0tcvng.cloudflarestream.com%2F0350a55f5fbf204911aa7d76dae836b7%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600", bg: "#1b2050" },
-  { title: "Spark", client: "TikTok", video: "https://customer-2qq5swrnyq0tcvng.cloudflarestream.com/d6a4d633b7c678fd2bebb292713f914c/iframe?muted=true&preload=true&loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-2qq5swrnyq0tcvng.cloudflarestream.com%2Fd6a4d633b7c678fd2bebb292713f914c%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600", bg: "#5c1b4e" },
-  { title: "Pulse", client: "X", video: "https://customer-2qq5swrnyq0tcvng.cloudflarestream.com/43cfa0ad37b69fc04856a675333da02b/iframe?muted=true&preload=true&loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-2qq5swrnyq0tcvng.cloudflarestream.com%2F43cfa0ad37b69fc04856a675333da02b%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600", bg: "#1a1a3a" },
+  { image: "/images/05.18.23 BASSRUSH_DM_1080X1350.png", bg: "#1a1a2e" },
+  { image: "/images/Countdown_25_Mega_Mix_1350.png", bg: "#1a1a2e" },
+  { image: "/images/EDC 1.png", bg: "#1a1a2e" },
+  { image: "/images/IIIP25 - PHASE 2 (FINAL).png", bg: "#1a1a2e" },
+  { image: "/images/IR_HOST_1350_00001.png", bg: "#1a1a2e" },
+  { image: "/images/RL CALIFORNIA 2024 ART _UNBLUR_1350 (STATIC).png", bg: "#1a1a2e" },
+  { image: "/images/RL_DAY 1 OSN 4X5_1350 (SATURDAY PESO) copy.png", bg: "#1a1a2e" },
+  { image: "/images/SLIDE_1_OSN_1350.png", bg: "#1a1a2e" },
+  { image: "/images/cedc_2026_mk_ps_soc_osn_1080x1350_r01 copy.png", bg: "#1a1a2e" },
+  { image: "/images/csc_2025_de_ka_1080x1350_r05 copy.png", bg: "#1a1a2e" },
+  { image: "/images/dtf_2025_Afterparty_1080x1350.png", bg: "#1a1a2e" },
+  { image: "/images/edcco_2026_de_ka_osd_1080x1350_r02.png", bg: "#1a1a2e" },
+  { image: "/images/edch_2026_de_ka_1080x1350_r02 copy.png", bg: "#1a1a2e" },
+  { image: "/images/edck_2026_de_ka_1080x1350_r09.png", bg: "#1a1a2e" },
+  { image: "/images/edclv_2026_de_te_1080x1350_r04 copy.png", bg: "#1a1a2e" },
+  { image: "/images/edclv_2026_mk_theme_reveal_soc_no_cta_1080x1350_r01 copy.png", bg: "#1a1a2e" },
+  { image: "/images/edcth_2026_de_te_osd_1080x1350_r02.png", bg: "#1a1a2e" },
+  { image: "/images/edth_2026_de_ka_1080x1350_osd_r03.png", bg: "#1a1a2e" },
+  { image: "/images/edth_2026_de_ts_no_cta_1080x1350 copy.png", bg: "#1a1a2e" },
+  { image: "/images/escape_2025_de_ka_1080x1350 copy.png", bg: "#1a1a2e" },
+  { image: "/images/lid_2025_de_ka_1080x1350 5 copy.png", bg: "#1a1a2e" },
+  { image: "/images/lid_2026_de_ka_1080x1350_r10 copy.png", bg: "#1a1a2e" },
+  { image: "/images/no cta.png", bg: "#1a1a2e" },
+  { image: "/images/rrf.png", bg: "#1a1a2e" },
+  { image: "/images/rrrr.png", bg: "#1a1a2e" },
+  { image: "/images/unity_2025_de_ka_1080x1350_r13.png", bg: "#1a1a2e" },
+  { image: "/images/vjf_2026_de_ka_1080x1350_r01 copy.png", bg: "#1a1a2e" },
 ];
 
-const NUM_COLS = 4;
+const NUM_COLS = 5;
 const COLUMNS = Array.from({ length: NUM_COLS }, (_, ci) => {
   const cards = MOSAIC.filter((_, i) => i % NUM_COLS === ci);
   return [...cards, ...cards, ...cards, ...cards];
@@ -142,42 +152,16 @@ function Nav() {
 
 /* ── MOSAIC CARD ─────────────────────────────── */
 function MosaicCard({ card }) {
-  const posterRef = useRef(null);
-  const isCloudflare = card.video && card.video.includes("cloudflarestream.com");
-  const posterUrl = isCloudflare ? (() => {
-    try { return new URL(card.video).searchParams.get("poster"); } catch { return null; }
-  })() : null;
-
   return (
     <div style={{
       width: "100%", aspectRatio: "4/5", borderRadius: 14,
       background: card.bg, position: "relative", overflow: "hidden",
       flexShrink: 0,
-      contain: "layout paint style",
-      isolation: "isolate",
     }}>
-      {isCloudflare && (
-        <iframe
-          src={card.video}
-          allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen"
-          allowFullScreen
-          onLoad={() => setTimeout(() => {
-            if (posterRef.current) posterRef.current.style.opacity = "0";
-          }, 800 + Math.random() * 600)}
-          style={{
-            position: "absolute", inset: -2,
-            width: "calc(100% + 4px)", height: "calc(100% + 4px)",
-            border: "none", pointerEvents: "none",
-          }}
-        />
-      )}
-      {posterUrl && (
-        <img ref={posterRef} src={posterUrl} alt="" style={{
-          position: "absolute", inset: 0, width: "100%", height: "100%",
-          objectFit: "cover", pointerEvents: "none",
-          transition: "opacity 0.6s ease",
-        }} />
-      )}
+      <img src={card.image} alt="" style={{
+        position: "absolute", inset: 0, width: "100%", height: "100%",
+        objectFit: "cover", pointerEvents: "none",
+      }} />
     </div>
   );
 }
@@ -190,7 +174,7 @@ function HeroMosaic() {
   const colRefs = useRef([]);
   useEffect(() => {
     const offsets = COLUMNS.map(() => 0);
-    const pxPerFrame = [0.5, 0.4, 0.55, 0.45];
+    const pxPerFrame = [0.5, 0.4, 0.55, 0.45, 0.5];
     const initialized = COLUMNS.map(() => false);
     let raf;
     const animate = () => {
