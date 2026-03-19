@@ -191,9 +191,16 @@ function HeroMosaic() {
     let raf;
 
     const tick = ts => {
-      // First frame: measure heights and set staggered starting positions
+      // First frame: measure exact copy height from DOM positions (no division, no rounding)
       if (!copyHeights) {
-        copyHeights = colRefs.current.map(el => el ? el.scrollHeight / 4 : 0);
+        copyHeights = colRefs.current.map((el, i) => {
+          if (!el) return 0;
+          const cardsPerCopy = COLUMNS[i].length / 4;
+          const card0 = el.children[0];
+          const card1 = el.children[cardsPerCopy]; // first card of copy 2
+          if (!card0 || !card1) return 0;
+          return card1.getBoundingClientRect().top - card0.getBoundingClientRect().top;
+        });
         offsets = copyHeights.map((h, i) => h * startFracs[i]);
         lastTs = ts;
         raf = requestAnimationFrame(tick);
