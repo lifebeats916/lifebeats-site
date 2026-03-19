@@ -173,26 +173,17 @@ function HeroMosaic() {
 
   const colRefs = useRef([]);
   useEffect(() => {
-    const offsets = COLUMNS.map(() => 0);
-    const pxPerFrame = [0.5, 0.4, 0.55, 0.45, 0.5];
-    const initialized = COLUMNS.map(() => false);
+    const pxPerFrame = [0.5, 0.35, 0.6, 0.42, 0.52];
+    const startFractions = [0, 0.35, 0.15, 0.55, 0.75];
+    const offsets = COLUMNS.map(() => null);
     let raf;
     const animate = () => {
       colRefs.current.forEach((el, i) => {
         if (!el) return;
         const copyHeight = el.scrollHeight / 4;
-        if (!initialized[i]) {
-          if (i % 2 === 1) offsets[i] = -copyHeight;
-          initialized[i] = true;
-        }
-        const goingDown = i % 2 === 1;
-        if (goingDown) {
-          offsets[i] += pxPerFrame[i];
-          if (offsets[i] >= 0) offsets[i] -= copyHeight;
-        } else {
-          offsets[i] -= pxPerFrame[i];
-          if (offsets[i] <= -copyHeight) offsets[i] += copyHeight;
-        }
+        if (offsets[i] === null) offsets[i] = -copyHeight * startFractions[i];
+        offsets[i] -= pxPerFrame[i];
+        if (offsets[i] <= -copyHeight) offsets[i] += copyHeight;
         el.style.transform = `translate3d(0, ${offsets[i]}px, 0)`;
       });
       raf = requestAnimationFrame(animate);
