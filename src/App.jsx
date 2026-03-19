@@ -47,10 +47,10 @@ const MOSAIC = [
 ];
 
 const NUM_COLS = 5;
-// 2 copies — CSS animation scrolls from 0 to -50% (one copy height), loops perfectly
+// 4 copies — CSS animation scrolls -25% (one copy), 4x ensures enough height on mobile
 const COLUMNS = Array.from({ length: NUM_COLS }, (_, ci) => {
   const cards = MOSAIC.filter((_, i) => i % NUM_COLS === ci);
-  return [...cards, ...cards];
+  return [...cards, ...cards, ...cards, ...cards];
 });
 // different durations + negative delays so columns are visually staggered
 const COL_ANIM = [
@@ -177,8 +177,25 @@ function MosaicCard({ card }) {
 
 /* ── HERO — FULL SCREEN MOSAIC + OVERLAY ─────── */
 function HeroMosaic() {
-  const [loaded, setLoaded] = useState(false);
-  useEffect(() => { setTimeout(() => setLoaded(true), 200); }, []);
+  const badgeRef = useRef(null);
+  const headlineRef = useRef(null);
+  const btnsRef = useRef(null);
+
+  useEffect(() => {
+    const t = setTimeout(() => {
+      [
+        [badgeRef, "0.7s ease 0.2s"],
+        [headlineRef, "0.8s ease 0.35s"],
+        [btnsRef, "0.8s ease 0.5s"],
+      ].forEach(([ref, timing]) => {
+        if (!ref.current) return;
+        ref.current.style.transition = `opacity ${timing}, transform ${timing}`;
+        ref.current.style.opacity = "1";
+        ref.current.style.transform = "translateY(0)";
+      });
+    }, 200);
+    return () => clearTimeout(t);
+  }, []);
 
   return (
     <section id="work" style={{
@@ -186,7 +203,7 @@ function HeroMosaic() {
       overflow: "hidden", background: C.bg,
       margin: 0, padding: 0,
     }}>
-      {/* Mosaic grid behind everything */}
+      {/* Mosaic grid — rendered once, never re-renders */}
       <div style={{
         position: "absolute", top: 0, left: 0, right: 0, bottom: 0, zIndex: 0,
         display: "grid",
@@ -207,7 +224,7 @@ function HeroMosaic() {
         ))}
       </div>
 
-      {/* Dark gradient overlay — center focus */}
+      {/* Dark gradient overlay */}
       <div style={{
         position: "absolute", inset: 0, zIndex: 1,
         background: `
@@ -225,9 +242,8 @@ function HeroMosaic() {
         padding: "0 24px",
       }}>
         {/* Logo / badge */}
-        <div style={{
-          opacity: loaded ? 1 : 0, transform: loaded ? "translateY(0)" : "translateY(20px)",
-          transition: "all 0.7s ease 0.2s",
+        <div ref={badgeRef} style={{
+          opacity: 0, transform: "translateY(20px)",
           marginBottom: 28,
         }}>
           <div style={{
@@ -249,15 +265,13 @@ function HeroMosaic() {
         </div>
 
         {/* Headline */}
-        <h1 style={{
+        <h1 ref={headlineRef} style={{
           fontFamily: "'Baloo 2', cursive",
           fontSize: "clamp(40px, 6.5vw, 88px)",
           fontWeight: 800, lineHeight: 1.05, color: "#fff",
           margin: "0 0 12px", letterSpacing: "-2px",
           maxWidth: 800,
-          opacity: loaded ? 1 : 0,
-          transform: loaded ? "translateY(0)" : "translateY(30px)",
-          transition: "all 0.8s ease 0.35s",
+          opacity: 0, transform: "translateY(30px)",
           textShadow: "0 4px 40px rgba(0,0,0,0.4)",
         }}>
           We make pixels<br />
@@ -271,10 +285,10 @@ function HeroMosaic() {
         </h1>
 
         {/* Buttons */}
-        <div style={{
+        <div ref={btnsRef} style={{
           display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap",
           marginTop: 20,
-          opacity: loaded ? 1 : 0, transition: "all 0.8s ease 0.5s",
+          opacity: 0, transform: "translateY(20px)",
         }}>
           <a href="#about" style={{
             padding: "16px 40px", borderRadius: 50,
@@ -573,7 +587,7 @@ export default function Lifebeats() {
         }
         @keyframes scrollUp {
           from { transform: translateY(0); }
-          to { transform: translateY(-50%); }
+          to { transform: translateY(-25%); }
         }
         @keyframes gradientShift {
           0% { background-position: 0% 50%; }
