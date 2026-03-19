@@ -268,20 +268,12 @@ function HeroMosaic() {
           opacity: 0, transform: "translateY(20px)",
           marginBottom: 28, display: "flex", justifyContent: "center",
         }}>
-          <div style={{
-            display: "inline-flex", alignItems: "center", justifyContent: "center",
-            padding: 6, borderRadius: 20,
-            background: "rgba(255,255,255,0.04)",
-            backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)",
-            border: "1px solid rgba(255,255,255,0.07)",
+          <video autoPlay loop muted playsInline style={{
+            height: 180, width: "auto", display: "block",
           }}>
-            <video autoPlay loop muted playsInline style={{
-              height: 180, width: "auto", display: "block",
-            }}>
-              <source src="https://pub-b4f402275ffd4de59e85f1b0a77c364f.r2.dev/LB LOGO 2.webm" type="video/webm" />
-              <source src="https://pub-b4f402275ffd4de59e85f1b0a77c364f.r2.dev/LB LOGO 1.mov" type="video/quicktime" />
-            </video>
-          </div>
+            <source src="https://pub-b4f402275ffd4de59e85f1b0a77c364f.r2.dev/LB LOGO 2.webm" type="video/webm" />
+            <source src="https://pub-b4f402275ffd4de59e85f1b0a77c364f.r2.dev/LB LOGO 1.mov" type="video/quicktime" />
+          </video>
         </div>
 
         {/* Headline */}
