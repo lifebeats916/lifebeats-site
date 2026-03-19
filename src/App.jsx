@@ -52,14 +52,6 @@ const COLUMNS = Array.from({ length: NUM_COLS }, (_, ci) => {
   const cards = MOSAIC.filter((_, i) => i % NUM_COLS === ci);
   return [...cards, ...cards, ...cards, ...cards];
 });
-// different durations + negative delays so columns are visually staggered
-const COL_ANIM = [
-  { duration: "22s", delay: "0s" },
-  { duration: "30s", delay: "-9s" },
-  { duration: "18s", delay: "-5s" },
-  { duration: "25s", delay: "-14s" },
-  { duration: "21s", delay: "-3s" },
-];
 
 /* ── OTHER DATA ──────────────────────────────── */
 
@@ -169,55 +161,61 @@ function MosaicCard({ card }) {
   );
 }
 
-/* ── MOSAIC COLUMN ───────────────────────────── */
-function MosaicColumn({ col, anim }) {
-  const ref = useRef(null);
-  const [px, setPx] = useState(null);
-
-  useEffect(() => {
-    if (!ref.current) return;
-    const measure = () => setPx(ref.current.scrollHeight / 4);
-    measure();
-    window.addEventListener("resize", measure);
-    return () => window.removeEventListener("resize", measure);
-  }, []);
-
-  return (
-    <div
-      ref={ref}
-      style={{
-        display: "flex", flexDirection: "column", willChange: "transform",
-        ...(px != null && {
-          animation: `scrollUpPx ${anim.duration} ${anim.delay} linear infinite`,
-          "--scroll-px": `${px}px`,
-        }),
-      }}
-    >
-      {col.map((card, i) => <MosaicCard key={i} card={card} />)}
-    </div>
-  );
-}
-
 /* ── HERO — FULL SCREEN MOSAIC + OVERLAY ─────── */
 function HeroMosaic() {
+  const colRefs = useRef([]);
   const badgeRef = useRef(null);
   const headlineRef = useRef(null);
   const btnsRef = useRef(null);
 
   useEffect(() => {
+    // overlay fade-in
     const t = setTimeout(() => {
-      [
-        [badgeRef, "0.7s ease 0.2s"],
-        [headlineRef, "0.8s ease 0.35s"],
-        [btnsRef, "0.8s ease 0.5s"],
-      ].forEach(([ref, timing]) => {
-        if (!ref.current) return;
-        ref.current.style.transition = `opacity ${timing}, transform ${timing}`;
-        ref.current.style.opacity = "1";
-        ref.current.style.transform = "translateY(0)";
-      });
+      [[badgeRef, "0.7s ease 0.2s"], [headlineRef, "0.8s ease 0.35s"], [btnsRef, "0.8s ease 0.5s"]]
+        .forEach(([ref, timing]) => {
+          if (!ref.current) return;
+          ref.current.style.transition = `opacity ${timing}, transform ${timing}`;
+          ref.current.style.opacity = "1";
+          ref.current.style.transform = "translateY(0)";
+        });
     }, 200);
-    return () => clearTimeout(t);
+
+    // time-based rAF scroll — no CSS animations, no state changes, no restarts
+    // durations in ms matching COL_ANIM; startFrac = |delay| / duration
+    const durations = [22000, 30000, 18000, 25000, 21000];
+    const startFracs = [0, 9/30, 5/18, 14/25, 3/21];
+
+    let copyHeights = null;
+    let offsets = null;
+    let lastTs = null;
+    let raf;
+
+    const tick = ts => {
+      // First frame: measure heights and set staggered starting positions
+      if (!copyHeights) {
+        copyHeights = colRefs.current.map(el => el ? el.scrollHeight / 4 : 0);
+        offsets = copyHeights.map((h, i) => h * startFracs[i]);
+        lastTs = ts;
+        raf = requestAnimationFrame(tick);
+        return;
+      }
+
+      const dt = ts - lastTs;
+      lastTs = ts;
+
+      colRefs.current.forEach((el, i) => {
+        if (!el || !copyHeights[i]) return;
+        offsets[i] += (copyHeights[i] / durations[i]) * dt;
+        // modulo wrap — offset stays in [0, copyHeight), never a large jump
+        if (offsets[i] >= copyHeights[i]) offsets[i] -= copyHeights[i];
+        el.style.transform = `translateY(${-offsets[i]}px)`;
+      });
+
+      raf = requestAnimationFrame(tick);
+    };
+
+    raf = requestAnimationFrame(tick);
+    return () => { cancelAnimationFrame(raf); clearTimeout(t); };
   }, []);
 
   return (
@@ -226,7 +224,6 @@ function HeroMosaic() {
       overflow: "hidden", background: C.bg,
       margin: 0, padding: 0,
     }}>
-      {/* Mosaic grid — rendered once, never re-renders */}
       <div style={{
         position: "absolute", top: 0, left: 0, right: 0, bottom: 0, zIndex: 0,
         display: "grid",
@@ -235,7 +232,10 @@ function HeroMosaic() {
         margin: 0, padding: 0,
       }}>
         {COLUMNS.map((col, ci) => (
-          <MosaicColumn key={ci} col={col} anim={COL_ANIM[ci]} />
+          <div key={ci} ref={el => colRefs.current[ci] = el}
+            style={{ display: "flex", flexDirection: "column", willChange: "transform" }}>
+            {col.map((card, i) => <MosaicCard key={i} card={card} />)}
+          </div>
         ))}
       </div>
 
@@ -576,10 +576,6 @@ export default function Lifebeats() {
         @keyframes marquee {
           0% { transform: translateX(0); }
           100% { transform: translateX(-50%); }
-        }
-        @keyframes scrollUpPx {
-          from { transform: translateY(0); }
-          to   { transform: translateY(calc(-1 * var(--scroll-px, 0px))); }
         }
         @keyframes gradientShift {
           0% { background-position: 0% 50%; }
