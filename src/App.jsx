@@ -169,6 +169,35 @@ function MosaicCard({ card }) {
   );
 }
 
+/* ── MOSAIC COLUMN ───────────────────────────── */
+function MosaicColumn({ col, anim }) {
+  const ref = useRef(null);
+  const [px, setPx] = useState(null);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    const measure = () => setPx(ref.current.scrollHeight / 4);
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      style={{
+        display: "flex", flexDirection: "column", willChange: "transform",
+        ...(px != null && {
+          animation: `scrollUpPx ${anim.duration} ${anim.delay} linear infinite`,
+          "--scroll-px": `${px}px`,
+        }),
+      }}
+    >
+      {col.map((card, i) => <MosaicCard key={i} card={card} />)}
+    </div>
+  );
+}
+
 /* ── HERO — FULL SCREEN MOSAIC + OVERLAY ─────── */
 function HeroMosaic() {
   const badgeRef = useRef(null);
@@ -206,15 +235,7 @@ function HeroMosaic() {
         margin: 0, padding: 0,
       }}>
         {COLUMNS.map((col, ci) => (
-          <div key={ci} style={{
-            display: "flex", flexDirection: "column",
-            animation: `scrollUp ${COL_ANIM[ci].duration} ${COL_ANIM[ci].delay} linear infinite`,
-            willChange: "transform",
-          }}>
-            {col.map((card, i) => (
-              <MosaicCard key={`${ci}-${i}`} card={card} />
-            ))}
-          </div>
+          <MosaicColumn key={ci} col={col} anim={COL_ANIM[ci]} />
         ))}
       </div>
 
@@ -556,9 +577,9 @@ export default function Lifebeats() {
           0% { transform: translateX(0); }
           100% { transform: translateX(-50%); }
         }
-        @keyframes scrollUp {
+        @keyframes scrollUpPx {
           from { transform: translateY(0); }
-          to { transform: translateY(-25%); }
+          to   { transform: translateY(calc(-1 * var(--scroll-px, 0px))); }
         }
         @keyframes gradientShift {
           0% { background-position: 0% 50%; }
