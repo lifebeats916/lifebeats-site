@@ -270,13 +270,13 @@ function HeroMosaic() {
         }}>
           <div style={{
             display: "inline-flex", alignItems: "center", justifyContent: "center",
-            padding: "12px 20px", borderRadius: 40,
+            padding: 20, borderRadius: 20,
             background: "rgba(255,255,255,0.08)",
             backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)",
             border: "1px solid rgba(255,255,255,0.1)",
           }}>
             <img src="/Images/life logo.png" alt="Lifebeats" style={{
-              height: 64, width: "auto", display: "block",
+              height: 104, width: "auto", display: "block",
             }} />
           </div>
         </div>
