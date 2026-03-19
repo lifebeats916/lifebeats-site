@@ -269,7 +269,7 @@ function HeroMosaic() {
           marginBottom: 28, display: "flex", justifyContent: "center",
         }}>
           <video autoPlay loop muted playsInline style={{
-            height: 180, width: "auto", display: "block",
+            height: "clamp(180px, 18vw, 320px)", width: "auto", display: "block",
           }}>
             <source src="https://pub-b4f402275ffd4de59e85f1b0a77c364f.r2.dev/LB LOGO 2.webm" type="video/webm" />
             <source src="https://pub-b4f402275ffd4de59e85f1b0a77c364f.r2.dev/LB LOGO 1.mov" type="video/quicktime" />
