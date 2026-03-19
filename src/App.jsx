@@ -47,10 +47,19 @@ const MOSAIC = [
 ];
 
 const NUM_COLS = 5;
+// 2 copies — CSS animation scrolls from 0 to -50% (one copy height), loops perfectly
 const COLUMNS = Array.from({ length: NUM_COLS }, (_, ci) => {
   const cards = MOSAIC.filter((_, i) => i % NUM_COLS === ci);
-  return [...cards, ...cards, ...cards, ...cards];
+  return [...cards, ...cards];
 });
+// different durations + negative delays so columns are visually staggered
+const COL_ANIM = [
+  { duration: "22s", delay: "0s" },
+  { duration: "30s", delay: "-9s" },
+  { duration: "18s", delay: "-5s" },
+  { duration: "25s", delay: "-14s" },
+  { duration: "21s", delay: "-3s" },
+];
 
 /* ── OTHER DATA ──────────────────────────────── */
 const TEAM = [
@@ -171,39 +180,6 @@ function HeroMosaic() {
   const [loaded, setLoaded] = useState(false);
   useEffect(() => { setTimeout(() => setLoaded(true), 200); }, []);
 
-  const colRefs = useRef([]);
-  useEffect(() => {
-    const pxPerFrame = [0.5, 0.35, 0.6, 0.42, 0.52];
-    const startFractions = [0, 0.35, 0.15, 0.55, 0.75];
-    const offsets = [];
-    const copyHeights = [];
-    let raf;
-
-    // measure once after layout settles, then never touch scrollHeight again
-    const start = () => {
-      colRefs.current.forEach((el, i) => {
-        if (!el) return;
-        copyHeights[i] = el.scrollHeight / 4;
-        offsets[i] = -copyHeights[i] * startFractions[i];
-      });
-
-      const animate = () => {
-        colRefs.current.forEach((el, i) => {
-          if (!el) return;
-          offsets[i] -= pxPerFrame[i];
-          if (offsets[i] <= -copyHeights[i]) offsets[i] += copyHeights[i];
-          el.style.transform = `translate3d(0, ${offsets[i]}px, 0)`;
-        });
-        raf = requestAnimationFrame(animate);
-      };
-      raf = requestAnimationFrame(animate);
-    };
-
-    // give the browser one frame to render cards before measuring
-    raf = requestAnimationFrame(start);
-    return () => cancelAnimationFrame(raf);
-  }, []);
-
   return (
     <section id="work" style={{
       position: "relative", width: "100%", height: "100dvh",
@@ -219,8 +195,9 @@ function HeroMosaic() {
         margin: 0, padding: 0,
       }}>
         {COLUMNS.map((col, ci) => (
-          <div key={ci} ref={el => colRefs.current[ci] = el} style={{
+          <div key={ci} style={{
             display: "flex", flexDirection: "column",
+            animation: `scrollUp ${COL_ANIM[ci].duration} ${COL_ANIM[ci].delay} linear infinite`,
             willChange: "transform",
           }}>
             {col.map((card, i) => (
@@ -594,9 +571,9 @@ export default function Lifebeats() {
           0% { transform: translateX(0); }
           100% { transform: translateX(-50%); }
         }
-        @keyframes scrollDown {
-          0% { transform: translate3d(0, -25%, 0); }
-          100% { transform: translate3d(0, 0%, 0); }
+        @keyframes scrollUp {
+          from { transform: translateY(0); }
+          to { transform: translateY(-50%); }
         }
         @keyframes gradientShift {
           0% { background-position: 0% 50%; }
