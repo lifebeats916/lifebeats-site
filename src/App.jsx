@@ -371,7 +371,7 @@ function About() {
               From concept to final render, we handle motion graphics, cinematic video, and visual identity with meticulous craft.
             </p>
             <div style={{ display: "flex", gap: 32 }}>
-              {[["50+", "Projects", C.pink], ["12", "Awards", C.blue], ["8yr", "Experience", C.green]].map(([n, l, c]) => (
+              {[["1000+", "Projects", C.pink], ["18yr", "Experience", C.green]].map(([n, l, c]) => (
                 <div key={l}>
                   <div style={{ fontFamily: "'Baloo 2', cursive", fontSize: 32, fontWeight: 800, color: c, lineHeight: 1 }}>{n}</div>
                   <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: C.sub, marginTop: 2 }}>{l}</div>
