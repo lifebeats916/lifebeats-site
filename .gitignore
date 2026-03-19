@@ -25,6 +25,7 @@ dist-ssr
 
 # large media files
 public/videos/
+*.psd
 
 # wrangler files
 .wrangler
